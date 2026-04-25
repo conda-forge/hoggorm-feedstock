@@ -7,24 +7,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/hoggorm-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/hoggorm-{{ version }}.tar.gz
   sha256: f1254d860f3024b2e6a2cecb2c0152f2010596235058781856c3a1a2f075c3b6
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.5
+    - python {{ python_min }}
     - sphinx
     - numpy >=1.9 # the package itself imports numpy when running setup.py
 
   run:
     - numpy >=1.9
-    - python >=3.5
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/olivertomic/hoggorm
